@@ -1,0 +1,43 @@
+{% include "dashboard/helpers/head.html" %}
+	<div class="navigation">
+		<div class="wrapper">
+			<h2>Test App</h2>
+
+			<ul class="nav main">
+				<li><a href="/">Home</a></li>
+			</ul>
+
+			<ul class="nav second">
+				<li><a href="/login">Sign in</a></li>
+			</ul>
+		</div>
+	</div>
+
+	<div id="pagewrap">
+		<div class="slideshow">
+			<h1>Welcome to the Dashboard Demonstration</h1>
+			<p>This is a demonstration of the power of MVC with Django, built with love by Daniel T Clancy.</p>
+			<a href="/dashboard/admin" class="button">Start</a>
+		</div>
+
+		<div class="featured">
+			<div class="item">
+				<h3>Manage Users</h3>
+				<p>Create, edit, and remove users in this custom web application.</p>
+			</div>
+
+			<div class="item">
+				<h3>Leave Messages</h3>
+				<p>Users will be able to leave a message to another user using this application.</p>
+			</div>
+
+			<div class="item">
+				<h3>Edit User Information</h3>
+				<p>Admins will be able to edit another user's information (email address, first name, last name, etc.)</p>
+			</div>
+		</div>
+
+	</div>
+
+
+{% include "dashboard/helpers/footer.html" %}

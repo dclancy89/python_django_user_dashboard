@@ -1,0 +1,99 @@
+body {
+	margin: 0;
+	padding: 0;
+	font-family: 'Saira Condensed', sans-serif;
+	background-image: url(../images/bg.png);
+	font-size: 1.1rem;
+}
+
+a, a:visited, a:active, a:focus {
+	color: #4286f4;
+	text-decoration: none;
+	transition: opacity 0.2s ease 0s;
+}
+
+a:hover {
+	opacity: 0.7;
+}
+
+.button {
+	background-color: #4286f4;
+	color: #ffffff;
+	border: 2px solid #4286f4;
+	border-radius: 0;
+	padding: 4px 18px;
+	margin: 0.5rem auto 0.5rem 0;
+	display: table;
+	text-decoration: none;
+	font-size: 1.25rem;
+	line-height: 1.4rem;
+	transition: all 0.4s ease 0s;
+}
+
+.button:hover {
+	background-color: transparent;
+	color: #4286f4;
+	opacity: 1;
+}
+
+.wrapper, #pagewrap {
+	display: block;
+	max-width: 75rem;
+	width: 100%;
+	margin: 0 auto;
+}
+
+#pagewrap {
+	margin-top: 65px;
+	padding-top: 1rem;
+}
+
+
+.navigation {
+	position: fixed;
+	width: 100%;
+	border-bottom: 5px solid black;
+	background: #EEE;
+	top: 0;
+}
+
+.navigation h2 {
+	margin: 0;
+	display: inline-block;
+}
+
+.navigation .nav {
+	display: inline-block;
+	list-style: none;
+}
+
+.navigation .nav.second {
+	float: right; 
+}
+
+.slideshow {
+	max-width: 100%;
+	border: 2px solid black;
+	background-color: #aaa;
+	padding: 2rem;
+}
+
+.slideshow h1 {
+	margin: 0;
+}
+
+.featured {
+	display: table;
+	width: 100%;
+}
+
+.featured .item {
+	display: table-cell;
+	width: 33%;
+	padding: 0.75rem;
+}
+
+
+
+
+
