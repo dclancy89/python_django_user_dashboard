@@ -1,0 +1,54 @@
+{% include "dashboard/helpers/head.html" %}
+	<div class="navigation">
+		<div class="wrapper">
+			<h2>Test App</h2>
+
+			<ul class="nav main">
+				<li><a href="/">Home</a></li>
+			</ul>
+
+			<ul class="nav second">
+				<li><a href="/login">Sign in</a></li>
+			</ul>
+		</div>
+	</div>
+
+	<div id="pagewrap">
+		<h2>Register</h2>
+		<form action="users/register" method="POST">
+			{% csrf_token %}
+
+			<label>
+				Email Address:
+				<input type="text" name="email">
+			</label>
+
+			<label>
+				First Name:
+				<input type="text" name="first_name">
+			</label>
+
+			<label>
+				Last Name:
+				<input type="text" name="last_name">
+			</label>
+
+			<label>
+				Password:
+				<input type="password" name="password">
+			</label>
+
+			<label>
+				Confirm Password:
+				<input type="password" name="confirm_pw">
+			</label>
+
+			<input type="submit" value="Register" class="button">
+		</form>
+
+		<a href="/signin">Already have an account? Sign in</a>
+
+	</div>
+
+
+{% include "dashboard/helpers/footer.html" %}

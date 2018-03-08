@@ -6,3 +6,6 @@ def index(request):
 
 def signin(request):
 	return render(request, 'dashboard/signin.html')
+
+def register(request):
+	return render(request, 'dashboard/register.html')
