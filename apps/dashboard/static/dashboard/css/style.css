@@ -16,7 +16,7 @@ a:hover {
 	opacity: 0.7;
 }
 
-.button {
+a.button, .button {
 	background-color: #4286f4;
 	color: #ffffff;
 	border: 2px solid #4286f4;
@@ -28,6 +28,7 @@ a:hover {
 	font-size: 1.25rem;
 	line-height: 1.4rem;
 	transition: all 0.4s ease 0s;
+	font-family: 'Saira Condensed', sans-serif;
 }
 
 .button:hover {
@@ -93,6 +94,12 @@ a:hover {
 	padding: 0.75rem;
 }
 
+input[type="text"], input[type="password"] {
+	display: block;
+	width: 200px;
+	font-size: 1.25rem;
+	padding: 0.3rem;
+}
 
 
 
