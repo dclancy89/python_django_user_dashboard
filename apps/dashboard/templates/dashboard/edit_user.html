@@ -1,0 +1,78 @@
+{% include "dashboard/helpers/head.html" %}
+{% include "dashboard/helpers/user_nav.html" %}
+{% include 'dashboard/helpers/messages.html' %}
+
+<div id="pagewrap">
+	<div class="dash-top">
+			<h2>Edit User #{{ user.id }}</h2>
+			<a href="/dashboard" class="button">Return to Dashboard</a>
+	</div>
+	<div class="col-1-2">
+
+		<form action="/users/update" method="POST">
+			<p>Edit Information</p>
+			<input type="hidden" value="edit_information">
+			<label>
+				Email Address:
+				<input type="text" name="email" value="{{ user.email }}">
+			</label>
+
+			<label>
+				First Name:
+				<input type="text" name="first_name" value="{{ user.first_name }}">
+			</label>
+
+			<label>
+				Last Name:
+				<input type="text" name="last_name" value="{{ user.last_name }}">
+			</label>
+
+			<label>
+				User Level:
+				<select>
+					<option value="9" {% if user.user_level == 9 %}selected{%endif%}>Admin</option>
+					<option value="1" {% if user.user_level == 1 %}selected{%endif%}>Standard</option>
+				</select>
+			</label>
+
+			<input type="submit" value="Save" class="button">
+
+		</form>
+	</div>
+	<div class="col-1-2">
+		<form action="/users/update" method="POST">
+			<p>Edit Information</p>
+			<input type="hidden" value="edit_information">
+			<label>
+				Email Address:
+				<input type="text" name="email" value="{{ user.email }}">
+			</label>
+
+			<label>
+				First Name:
+				<input type="text" name="first_name" value="{{ user.first_name }}">
+			</label>
+
+			<label>
+				Last Name:
+				<input type="text" name="last_name" value="{{ user.last_name }}">
+			</label>
+
+			<label>
+				User Level:
+				<select>
+					<option value="9" {% if user.user_level == 9 %}selected{%endif%}>Admin</option>
+					<option value="1" {% if user.user_level == 1 %}selected{%endif%}>Standard</option>
+				</select>
+			</label>
+
+			<input type="submit" value="Save" class="button">
+
+		</form>
+	</div>
+</div>
+
+
+
+
+{% include "dashboard/helpers/footer.html" %}

@@ -37,6 +37,18 @@ a.button, .button {
 	opacity: 1;
 }
 
+.button.red {
+	background-color: #b70000;
+	border-color: #b70000;
+}
+
+.button.red:hover {
+	background-color: transparent;
+	color: #b70000;
+}
+
+
+
 
 .wrapper, #pagewrap {
 	display: block;
@@ -106,7 +118,11 @@ input[type="text"], input[type="password"] {
 	padding: 0.3rem;
 }
 
-.dash-top h3 {
+.dash-top {
+	display: block;
+}
+
+.dash-top h2 {
 	margin: 0;
 	text-align: left;
 	display: inline-block;
@@ -145,5 +161,11 @@ table tr:nth-child(even) {
 	background-color: rgba(221, 221, 221, 0.7);
 }
 
-
+span.title {
+	text-decoration: underline;
+	font-weight: bold;
+	display: inline-block;
+	text-align: left;
+	width: 100px;
+}
 

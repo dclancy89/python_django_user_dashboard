@@ -1,0 +1,27 @@
+{% include "dashboard/helpers/head.html" %}
+{% include "dashboard/helpers/user_nav.html" %}
+
+	<div id="pagewrap">
+		
+		
+
+
+		{% if user.id == request.session.id %}
+			<h1>Oops!</h1>
+			<p>It looks like you're trying to delete yourself.</p>
+			<a href="/dashboard" class="button">Go back</a>
+		{% else %}
+			<h1>Are you sure you want to delete the following user?</h1>
+			<p><span class="title">ID:</span> {{ user.id }}</p>
+			<p><span class="title">Name:</span> {{ user.first_name }} {{ user.last_name }}</p>
+			<p><span class="title">Email:</span> {{ user.email }}</p>
+			<p><span class="title">User Level:</span> {% if user.user_level == 9 %}Admin{%else%}Standard{%endif%}</p>
+
+			<a href="/dashboard" class="button">No, Go back</a> <a href="/users/{{ user.id }}/delete" class="button red">Yes, Delete this user.</a>
+		{% endif %}
+
+
+	</div>
+
+
+{% include "dashboard/helpers/footer.html" %}

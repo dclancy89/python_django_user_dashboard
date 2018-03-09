@@ -1,13 +1,17 @@
 {% include "dashboard/helpers/head.html" %}
-{% include "dashboard/helpers/public_nav.html" %}
+{% include "dashboard/helpers/user_nav.html" %}
 
-	{% include 'dashboard/helpers/messages.html' %}
+{% include 'dashboard/helpers/messages.html' %}
 
 	<div id="pagewrap">
-		<h2>Register</h2>
+		<div class="dash-top">
+			<h2>Add a new user</h2>
+			<a href="/dashboard" class="button">Return to Dashboard</a>
+		</div>
 		<form action="/users/register" method="POST">
 			{% csrf_token %}
-			<input type="hidden" name="form" value="register">
+
+			<input type="hidden" name="form" value="new_user">
 			<label>
 				Email Address:
 				<input type="text" name="email">
@@ -33,10 +37,9 @@
 				<input type="password" name="confirm_pw">
 			</label>
 
-			<input type="submit" value="Register" class="button">
+			<input type="submit" value="Add User" class="button">
 		</form>
 
-		<a href="/signin">Already have an account? Sign in</a>
 
 	</div>
 

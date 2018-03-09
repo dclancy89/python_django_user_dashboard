@@ -15,6 +15,9 @@ def signin(request):
 def register(request):
 	return render(request, 'dashboard/register.html')
 
+def new(request):
+	return render(request, 'dashboard/new_user.html')
+
 def dashboard(request):
 
 	if request.session.get('id') == None:
@@ -35,7 +38,10 @@ def create_user(request):
 	if len(errors):
 		for tag, error in errors.iteritems():
 			messages.error(request, error)
-		return redirect('/register')
+		if request.POST['form'] == "register":
+			return redirect('/register')
+		elif request.POST['form'] == "new_user":
+			return redirect('/users/new')
 	else:
 		email = request.POST['email']
 		first_name = request.POST['first_name']
@@ -51,8 +57,11 @@ def create_user(request):
 
 		d = Description.objects.create(description="None")
 		User.objects.create(first_name=first_name, last_name=last_name, email=email, password=hashed_pw, user_level=user_level ,description=d)
-		u = User.objects.get(email=email)
-		request.session['id'] = u.id
+		
+		if request.POST['form'] == "register":
+			u = User.objects.get(email=email)
+			request.session['id'] = u.id
+
 		return redirect('/dashboard')
 
 	return redirect('/')
@@ -83,3 +92,19 @@ def signin_user(request):
 def logout(request):
 	request.session.clear()
 	return redirect('/signin')
+
+def destroy(request, id):
+	print request.session['id']
+	user = User.objects.get(id=id)
+	context = {'user': user}
+	return render(request, 'dashboard/confirm_destroy.html', context)
+
+def delete(request, id):
+	user = User.objects.get(id=id)
+	user.delete()
+	return redirect('/dashboard')
+
+
+
+
+
