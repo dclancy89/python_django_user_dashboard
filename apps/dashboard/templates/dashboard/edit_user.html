@@ -1,17 +1,19 @@
 {% include "dashboard/helpers/head.html" %}
 {% include "dashboard/helpers/user_nav.html" %}
-{% include 'dashboard/helpers/messages.html' %}
+
 
 <div id="pagewrap">
+	{% include 'dashboard/helpers/messages.html' %}
 	<div class="dash-top">
-			<h2>Edit User #{{ user.id }}</h2>
+			<h2>Edit {% if user.id == request.session.id %}Profile{%else%}User #{{ user.id }}{%endif%}</h2>
 			<a href="/dashboard" class="button">Return to Dashboard</a>
 	</div>
 	<div class="col-1-2">
 
-		<form action="/users/update" method="POST">
+		<form action="/users/update/{{ user.id }}" method="POST" class="edit">
+			{% csrf_token %}
 			<p>Edit Information</p>
-			<input type="hidden" value="edit_information">
+			<input type="hidden" name="form" value="edit_information">
 			<label>
 				Email Address:
 				<input type="text" name="email" value="{{ user.email }}">
@@ -27,49 +29,56 @@
 				<input type="text" name="last_name" value="{{ user.last_name }}">
 			</label>
 
+			{% if user.user_level == 9 %}
 			<label>
 				User Level:
-				<select>
+				<select name="user_level">
 					<option value="9" {% if user.user_level == 9 %}selected{%endif%}>Admin</option>
 					<option value="1" {% if user.user_level == 1 %}selected{%endif%}>Standard</option>
 				</select>
 			</label>
+			{% endif %}
 
 			<input type="submit" value="Save" class="button">
 
 		</form>
 	</div>
 	<div class="col-1-2">
-		<form action="/users/update" method="POST">
-			<p>Edit Information</p>
-			<input type="hidden" value="edit_information">
+		<form action="/users/update/{{user.id}}" method="POST" class="edit">
+			{% csrf_token %}
+			<p>Change Password</p>
+			<input type="hidden" name="form" value="update_password">
 			<label>
-				Email Address:
-				<input type="text" name="email" value="{{ user.email }}">
+				Password:
+				<input type="password" name="password">
 			</label>
 
 			<label>
-				First Name:
-				<input type="text" name="first_name" value="{{ user.first_name }}">
+				Confirm Password:
+				<input type="password" name="confirm_pw">
 			</label>
 
-			<label>
-				Last Name:
-				<input type="text" name="last_name" value="{{ user.last_name }}">
-			</label>
+			<input type="submit" value="Update Password" class="button">
 
+		</form>
+	</div>
+
+	{% if user.id == request.session.id %}
+		<div class="col-1-1">
+			<form action="/users/update/{{user.id}}" method="POST" class="edit">
+			{% csrf_token %}
+			<p>Edit Description</p>
+			<input type="hidden" name="form" value="update_description">
 			<label>
-				User Level:
-				<select>
-					<option value="9" {% if user.user_level == 9 %}selected{%endif%}>Admin</option>
-					<option value="1" {% if user.user_level == 1 %}selected{%endif%}>Standard</option>
-				</select>
+				Description
+				<textarea name="description">{{ user.description.description }}</textarea>
 			</label>
 
 			<input type="submit" value="Save" class="button">
 
 		</form>
-	</div>
+		</div>
+	{% endif %}
 </div>
 
 

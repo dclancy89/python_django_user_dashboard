@@ -6,6 +6,28 @@ body {
 	font-size: 1.1rem;
 }
 
+.col-1-2 {
+	display: inline-block;
+	width: 50%;
+	vertical-align: top;
+}
+
+.col-1-1 {
+	width: 100%;
+}
+
+ul.messages {
+	list-style: none;
+}
+
+li.error {
+	color: red;
+}
+
+li.success {
+	color: green;
+}
+
 a, a:visited, a:active, a:focus {
 	color: #4286f4;
 	text-decoration: none;
@@ -60,6 +82,7 @@ a.button, .button {
 #pagewrap {
 	margin-top: 65px;
 	padding-top: 1rem;
+	white-space: nowrap;
 }
 
 
@@ -83,6 +106,7 @@ a.button, .button {
 
 .navigation .nav li {
 	display: inline-block;
+	margin: 0 10px;
 }
 
 .navigation .nav.second {
@@ -162,10 +186,52 @@ table tr:nth-child(even) {
 }
 
 span.title {
-	text-decoration: underline;
 	font-weight: bold;
 	display: inline-block;
 	text-align: left;
 	width: 100px;
+}
+
+form.edit {
+	border: 1px solid black;
+	margin: 2rem;
+	padding: 1.5rem;
+	position: relative;
+
+}
+
+form.edit p {
+	margin: 0;
+	position: absolute;
+    background-color: white;
+    display: inline-block;
+    top: -20px;
+    padding: 0 0.5rem;
+    border: 1px solid black;
+    font-size: 1.25rem;
+}
+
+form.edit select {
+	display: block;
+	font-size: 1.25rem;
+}
+
+form.edit textarea {
+	display: block;
+    width: 100%;
+    max-width: 98%;
+    min-height: 8rem;
+    resize: vertical;
+    font-size: 1.25rem;
+    padding: 0.5rem;
+}
+
+form.edit input[type="text"], form.edit input[type="password"] {
+	width: 300px;
+}
+
+form.edit .button {
+	margin-right: 0;
+	margin-left: auto;
 }
 

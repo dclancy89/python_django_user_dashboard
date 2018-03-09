@@ -1,0 +1,18 @@
+{% include "dashboard/helpers/head.html" %}
+{% include "dashboard/helpers/user_nav.html" %}
+
+
+<div id="pagewrap">
+	{% include 'dashboard/helpers/messages.html' %}
+
+	<div id="profile">
+		<h2>{{ user.first_name }}&nbsp;{{ user.last_name }}</h2>
+		<p><span class="title">Registered at:</span> {{ user.created_at }}</p>
+		<p><span class="title">User ID:</span> #{{ user.id }}</p>
+		<p><span class="title">Email Address: </span> {{ user.email }}</p>
+		<p><span class="title">Description: </span>  {{ user.description.description}}</p>
+	</div>
+	<div id="messages"></div>
+</div>
+
+{% include "dashboard/helpers/footer.html" %}

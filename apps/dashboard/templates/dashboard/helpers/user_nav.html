@@ -4,10 +4,11 @@
 
 			<ul class="nav main">
 				<li><a href="/dashboard">Dashboard</a></li>
-				<li><a href="/dashboard">Profile</a></li>
+				<li><a href="/users/edit">Profile</a></li>
 			</ul>
 
 			<ul class="nav second">
+				<li>Hello, {{ request.session.first_name }}</li>
 				<li><a href="/logout">Log Off</a></li>
 			</ul>
 		</div>

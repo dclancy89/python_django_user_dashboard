@@ -41,7 +41,7 @@ class UserManager(models.Manager):
 				errors['email'] = "This user already exists."
 
 
-		# validate email
+		# validate password
 		if len(postData['password']) < 8 and postData['password'].isalpha():
 			if len(postData['password']) < 8:
 				errors['password_length'] = "Password must be at least 8 characters."
@@ -52,6 +52,52 @@ class UserManager(models.Manager):
 		if postData['password'] != postData['confirm_pw']:
 			errors['confirm_pw'] = "Passwords must match"
 
+
+		return errors
+
+	def validate_update_information(request, postData):
+
+		errors = {}
+
+		# validate first name
+		if len(postData['first_name']) < 2 or not postData['first_name'].isalpha():
+			if len(postData['first_name']) < 2:
+				errors['first_name_length'] = "First Name must be at least two characters."
+			if not postData['first_name'].isalpha():
+				errors['first_name_alpha'] = "First Name can only contain letters."
+
+		# validate last name
+		if len(postData['last_name']) < 2 or not postData['last_name'].isalpha():
+			if len(postData['last_name']) < 2:
+				errors['last_name_length'] = "Last Name must be at least two characters."
+			if not postData['first_name'].isalpha():
+				errors['lst_name_alpha'] = "Last Name can only contain letters."
+
+		# validate email
+		try:
+			validate_email(postData['email'])
+		except ValidationError:
+			errors['email'] = "This is not a valid email."
+		else:
+
+			if User.objects.filter(email=postData['email']) and postData['email'] != User.objects.filter(email=postData['email'])[0].email:
+				errors['email'] = "This email is already in use."
+
+		return errors
+
+	def validate_update_password(request, postData):
+		errors = {}
+
+		# validate password
+		if len(postData['password']) < 8 and postData['password'].isalpha():
+			if len(postData['password']) < 8:
+				errors['password_length'] = "Password must be at least 8 characters."
+			if postData['password'].isalpha():
+				errors['password_alpha'] = "Password must contain one number or special character."
+
+		# check if passwords match
+		if postData['password'] != postData['confirm_pw']:
+			errors['confirm_pw'] = "Passwords must match"
 
 		return errors
 
@@ -76,7 +122,18 @@ class MessageManager(models.Manager):
 
 class Message(models.Model):
 	author = models.ForeignKey(User, related_name="posts")
-	message = models.TextField()
+	message = models.CharField(max_length=255)
 	for_user = models.ForeignKey(User, related_name="messages")
+
+class CommentManager(models.Manager):
+	def validate_comment(request, postData):
+		errors = {}
+
+		return errors
+class Comment(models.Model):
+	author = models.ForeignKey(User, related_name="comments")
+	comment = models.CharField(max_length=255)
+	message = models.ForeignKey(Message, related_name="comments")
+
 
 

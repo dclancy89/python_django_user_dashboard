@@ -23,9 +23,9 @@ def dashboard(request):
 	if request.session.get('id') == None:
 		redirect('/signin')
 
-	print request.session['id']
 
 	user = User.objects.get(id=request.session['id'])
+	request.session['first_name'] = user.first_name
 	users = User.objects.all()
 	context = {'user': user, 'users': users}
 	return render(request, 'dashboard/dashboard.html', context)
@@ -88,6 +88,84 @@ def signin_user(request):
 		messages.error(request, "User does not exists")
 		return redirect('/signin')
 
+def edit(request, id):
+	user = User.objects.get(id=id)
+	context = {'user': user}
+	return render(request, 'dashboard/edit_user.html', context)
+
+def edit_self(request):
+	user = User.objects.get(id=request.session['id'])
+	context = {'user': user}
+	return render(request, 'dashboard/edit_user.html', context)
+
+def update(request, id):
+
+	if request.POST['form'] == "edit_information":
+		errors = User.objects.validate_update_information(request.POST)
+		if len(errors):
+			for tag, error in errors.iteritems():
+				messages.error(request, error)
+			return redirect('/users/edit/{}'.format(id))
+		else: 
+			email = request.POST['email']
+			first_name = request.POST['first_name']
+			last_name = request.POST['last_name']
+			if 'user_level' in request.POST:
+				user_level = request.POST['user_level']
+			else: 
+				user_level = 1
+
+			user = User.objects.get(id=id)
+			user.first_name = first_name
+			user.last_name = last_name
+			user.email = email
+			if user.id == request.session['id']:
+				if user_level != User.objects.get(id=request.session['id']).user_level:
+					messages.error(request, "You cannot change your own user level")
+					user_level = User.objects.get(id=request.session['id']).user_level
+					return redirect('/users/edit/{}'.format(id))
+			user.user_level = user_level
+			user.save()
+
+			messages.success(request, "User successfully Updated")
+
+			return redirect('/users/edit/{}'.format(id))
+
+	elif request.POST['form'] == "update_password":
+		errors = User.objects.validate_update_password(request.POST)
+		if len(errors):
+			for tag, error in errors.iteritems():
+				messages.error(request, error)
+			return redirect('/users/edit/{}'.format(id))
+		else:
+			password = request.POST['password']
+			hashed_pw = bcrypt.hashpw(password.encode(), bcrypt.gensalt())
+
+			user = User.objects.get(id=id)
+			user.password = hashed_pw
+			user.save()
+
+			messages.success(request, "Password successfully Updated")
+
+			return redirect('/users/edit/{}'.format(id))
+	elif request.POST['form'] == "update_description":
+		description = request.POST['description']
+		user = User.objects.get(id=id)
+		user.description.description = description
+		user.description.save()
+
+		messages.success(request, "Description successfully Updated")
+
+		return redirect('/users/edit/{}'.format(id))
+
+
+	return redirect('/users/edit/{}'.format(id))
+
+
+def show(request, id):
+	user = User.objects.get(id=id)
+	context = {'user': user}
+	return render(request, 'dashboard/show_user.html', context)
 
 def logout(request):
 	request.session.clear()
