@@ -1,0 +1,53 @@
+{% include "dashboard/helpers/head.html" %}
+	<div class="navigation">
+		<div class="wrapper">
+			<h2>Test App</h2>
+
+			<ul class="nav main">
+				<li><a href="/dashboard">Dashboard</a></li>
+				<li><a href="/dashboard">Profile</a></li>
+			</ul>
+
+			<ul class="nav second">
+				<li><a href="/logout">Log Off</a></li>
+			</ul>
+		</div>
+	</div>
+
+	<div id="pagewrap">
+		<div class="dash-top">
+			<h3>{% if user.user_level == 9 %}Manage Users{% else %}All Users{%endif%}</h3>
+			{% if user.user_level == 9 %}<a href="/users/new" class="button">Add New</a>{%endif%}
+		</div>
+
+		<table>
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>Name</th>
+					<th>Email</th>
+					<th>Created At</th>
+					<th>User Level</th>
+					{%if user.user_level == 9 %}<th>Actions</th>{%endif%}
+				</tr>
+			</thead>
+			<tbody>
+				{% for u in users %}
+					<tr>
+						<td>{{ u.id }}</td>
+						<td>{{ u.first_name }} {{ u.last_name }}</td>
+						<td>{{ u.email }}</td>
+						<td>{{ u.created_at }}</td>
+						<td>{% if u.user_level == 9 %}Admin{%else%}Standard{%endif%}</td>
+						{%if user.user_level == 9 %}<td><a href="#">edit</a> | <a href="#">remove</a></td>{%endif%}
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+		
+
+
+	</div>
+
+
+{% include "dashboard/helpers/footer.html" %}

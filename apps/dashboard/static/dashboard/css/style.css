@@ -37,6 +37,7 @@ a.button, .button {
 	opacity: 1;
 }
 
+
 .wrapper, #pagewrap {
 	display: block;
 	max-width: 75rem;
@@ -66,6 +67,10 @@ a.button, .button {
 .navigation .nav {
 	display: inline-block;
 	list-style: none;
+}
+
+.navigation .nav li {
+	display: inline-block;
 }
 
 .navigation .nav.second {
@@ -101,6 +106,44 @@ input[type="text"], input[type="password"] {
 	padding: 0.3rem;
 }
 
+.dash-top h3 {
+	margin: 0;
+	text-align: left;
+	display: inline-block;
+}
+
+.dash-top a {
+	
+	display: inline-block;
+	float: right
+}
+
+table {
+	margin-top: 2rem;
+	border: 2px solid black;
+	border-spacing: 0;
+	width: 100%;
+}
+
+table th, table td {
+	text-align: left;
+	padding: 0.75rem;
+	border-right: 2px solid black;
+}
+
+table th:last-child, table td:last-child {
+	border: none;
+}
+
+table th {
+	background-color: rgba(187,187,187, 0.7);
+}
+
+
+
+table tr:nth-child(even) {
+	background-color: rgba(221, 221, 221, 0.7);
+}
 
 
 
