@@ -12,7 +12,50 @@
 		<p><span class="title">Email Address: </span> {{ user.email }}</p>
 		<p><span class="title">Description: </span>  {{ user.description.description}}</p>
 	</div>
-	<div id="messages"></div>
+
+	<hr />
+
+	<div id="messages">
+		<div class="leave_message">
+			<form action="/users/show/{{ user.id }}/save_message" method="POST">
+				{% csrf_token %}
+				
+					<h3>Leave a message for {{ user.first_name }}.</h3>
+					<textarea name="message"></textarea>
+				
+
+				<input type="submit" value="Post" class="button">
+			</form>
+		</div>
+
+		<div class="show_messages">
+			{% if not user_messages %}
+				<p>There are no messages</p>
+			{% else %}
+				{% for message in user_messages %}
+					<h3><a href="/users/show/{{ message.author.id }}">{{ message.author.first_name }} {{ message.author.last_name }}</a> wrote:</h3>
+					<span class="posted_at">{{ message.created_at }}</span>
+					<p>{{ message.message }}</p>
+					<div class="comments">
+						{% for comment in comments %}
+							<h4><a href="/users/show/{{ comment.author.id }}">{{ comment.author.first_name }} {{ comment.author.last_name }}</a> wrote:</h4>
+							<span class="posted_at">{{ comment.created_at }}</span>
+							<p>{{ comment.comment }}</p>
+						{% endfor %}
+						<div class="leave_comment">
+							<form action="/users/show/{{ user.id }}/{{ message.id }}/save_comment" method="POST">
+							{% csrf_token %}
+				
+							<textarea name="comment" placeholder="Write a comment..."></textarea>
+				
+							<input type="submit" value="Post" class="button">
+							</form>
+						</div>
+					</div>
+				{% endfor %}
+			{% endif %}
+		</div>
+	</div>
 </div>
 
 {% include "dashboard/helpers/footer.html" %}

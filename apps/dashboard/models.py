@@ -117,23 +117,35 @@ class User(models.Model):
 class MessageManager(models.Manager):
 	def validate_message(request, postData):
 		errors = {}
-
+		if len(postData['message']) >= 255:
+			errors['message'] = "Message is too long."
 		return errors
 
 class Message(models.Model):
 	author = models.ForeignKey(User, related_name="posts")
 	message = models.CharField(max_length=255)
 	for_user = models.ForeignKey(User, related_name="messages")
+	created_at = models.DateTimeField(auto_now_add = True)
+	updated_at = models.DateTimeField(auto_now = True)
+
+	objects = MessageManager()
 
 class CommentManager(models.Manager):
 	def validate_comment(request, postData):
 		errors = {}
+
+		if len(postData['comment']) >= 255:
+			errors['comment'] = "Comment is too long."
 
 		return errors
 class Comment(models.Model):
 	author = models.ForeignKey(User, related_name="comments")
 	comment = models.CharField(max_length=255)
 	message = models.ForeignKey(Message, related_name="comments")
+	created_at = models.DateTimeField(auto_now_add = True)
+	updated_at = models.DateTimeField(auto_now = True)
+
+	objects = CommentManager()
 
 
 

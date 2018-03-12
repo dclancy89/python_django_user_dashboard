@@ -29,7 +29,7 @@
 				<input type="text" name="last_name" value="{{ user.last_name }}">
 			</label>
 
-			{% if user.user_level == 9 %}
+			{% if request.session.user_level == 9 %}
 			<label>
 				User Level:
 				<select name="user_level">

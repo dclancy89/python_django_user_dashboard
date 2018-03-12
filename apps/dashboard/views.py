@@ -25,7 +25,7 @@ def dashboard(request):
 
 
 	user = User.objects.get(id=request.session['id'])
-	request.session['first_name'] = user.first_name
+	
 	users = User.objects.all()
 	context = {'user': user, 'users': users}
 	return render(request, 'dashboard/dashboard.html', context)
@@ -78,6 +78,8 @@ def signin_user(request):
 		isPassword = bcrypt.checkpw(password.encode(), user[0].password.encode())
 		if isPassword:
 			request.session['id'] = user[0].id
+			request.session['first_name'] = user[0].first_name
+			request.session['user_level'] = user[0].user_level
 			return redirect('/dashboard')
 		else:
 			# wrong password
@@ -164,8 +166,51 @@ def update(request, id):
 
 def show(request, id):
 	user = User.objects.get(id=id)
-	context = {'user': user}
+	user_messages = Message.objects.filter(for_user=user)
+	comments = Comment.objects.all()
+	context = {
+			'user': user,
+			'user_messages': user_messages,
+			'comments': comments
+	}
 	return render(request, 'dashboard/show_user.html', context)
+
+def save_message(request, id):
+	errors = Message.objects.validate_message(request.POST)
+
+	if len(errors):
+			for tag, error in errors.iteritems():
+				messages.error(request, error)
+			return redirect('/users/show/{}'.format(id))
+
+
+	for_user = User.objects.get(id=id)
+	message = request.POST['message']
+	author = User.objects.get(id=request.session['id'])
+
+	Message.objects.create(author=author, message=message, for_user=for_user)
+	messages.success(request, "Message succesfully posted.")
+
+	return redirect('/users/show/{}'.format(id))
+
+
+def save_comment(request, user_id, message_id):
+	errors = Comment.objects.validate_comment(request.POST)
+
+	if len(errors):
+		for tag, error in errors.iteritems():
+			messages.error(request, error)
+		return redirect('/users/show/{}'.format(user_id))
+
+	author = User.objects.get(id=request.session['id'])
+	comment = request.POST['comment']
+	message = Message.objects.get(id=message_id)
+
+	Comment.objects.create(author=author, comment=comment, message=message)
+
+	messages.success(request, "Comment successfully posted.")
+
+	return redirect('/users/show/{}'.format(user_id))
 
 def logout(request):
 	request.session.clear()
@@ -179,6 +224,7 @@ def destroy(request, id):
 
 def delete(request, id):
 	user = User.objects.get(id=id)
+
 	user.delete()
 	return redirect('/dashboard')
 
