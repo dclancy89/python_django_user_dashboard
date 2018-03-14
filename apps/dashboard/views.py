@@ -21,7 +21,7 @@ def new(request):
 def dashboard(request):
 
 	if request.session.get('id') == None:
-		redirect('/signin')
+		return redirect('/signin')
 
 
 	user = User.objects.get(id=request.session['id'])
