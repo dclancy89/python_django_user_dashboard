@@ -66,7 +66,7 @@ def create_user(request):
 
 	messages.error(request, "Registration is disabled for demonstration.")
 
-	return redirect('/register')
+	return redirect('/signin')
 
 def signin_user(request):
 
