@@ -10,6 +10,10 @@
 			<h1>Oops!</h1>
 			<p>It looks like you're trying to delete yourself.</p>
 			<a href="/dashboard" class="button">Go back</a>
+		{% else if user.id == 1 %}
+			<h1>Oops!</h1>
+			<p>It looks like you're trying to delete the Super Admin. Tsk Tsk.</p>
+			<a href="/dashboard" class="button">Go back</a>
 		{% else %}
 			<h1>Are you sure you want to delete the following user?</h1>
 			<p><span class="title">ID:</span> {{ user.id }}</p>
