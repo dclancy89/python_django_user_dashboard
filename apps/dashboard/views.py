@@ -13,7 +13,9 @@ def signin(request):
 	return render(request, 'dashboard/signin.html')
 
 def register(request):
-	return render(request, 'dashboard/register.html')
+	messages.error(request, "New User Registration is disabled for demo.")
+	#return render(request, 'dashboard/register.html')
+	return redirect('/signin')
 
 def new(request):
 	return render(request, 'dashboard/new_user.html')
@@ -33,40 +35,40 @@ def dashboard(request):
 def create_user(request):
 	
 
-	# errors = User.objects.validate_user(request.POST)
+	errors = User.objects.validate_user(request.POST)
 
-	# if len(errors):
-	# 	for tag, error in errors.iteritems():
-	# 		messages.error(request, error)
-	# 	if request.POST['form'] == "register":
-	# 		return redirect('/register')
-	# 	elif request.POST['form'] == "new_user":
-	# 		return redirect('/users/new')
-	# else:
-	# 	email = request.POST['email']
-	# 	first_name = request.POST['first_name']
-	# 	last_name = request.POST['last_name']
-	# 	password = request.POST['password']
-	# 	hashed_pw = bcrypt.hashpw(password.encode(), bcrypt.gensalt())
+	if len(errors):
+		for tag, error in errors.iteritems():
+			messages.error(request, error)
+		if request.POST['form'] == "register":
+			return redirect('/register')
+		elif request.POST['form'] == "new_user":
+			return redirect('/users/new')
+	else:
+		email = request.POST['email']
+		first_name = request.POST['first_name']
+		last_name = request.POST['last_name']
+		password = request.POST['password']
+		hashed_pw = bcrypt.hashpw(password.encode(), bcrypt.gensalt())
 
-	# 	u = User.objects.all()
-	# 	if len(u) < 1:
-	# 		user_level = 9
-	# 	else:
-	# 		user_level = 1
+		u = User.objects.all()
+		if len(u) < 1:
+			user_level = 9
+		else:
+			user_level = 1
 
-	# 	d = Description.objects.create(description="None")
-	# 	User.objects.create(first_name=first_name, last_name=last_name, email=email, password=hashed_pw, user_level=user_level ,description=d)
+		d = Description.objects.create(description="None")
+		User.objects.create(first_name=first_name, last_name=last_name, email=email, password=hashed_pw, user_level=user_level ,description=d)
 		
-	# 	if request.POST['form'] == "register":
-	# 		u = User.objects.get(email=email)
-	# 		request.session['id'] = u.id
+		if request.POST['form'] == "register":
+			u = User.objects.get(email=email)
+			request.session['id'] = u.id
 
-	# 	return redirect('/dashboard')
+		return redirect('/dashboard')
 
-	messages.error(request, "Registration is disabled for demonstration.")
 
-	return redirect('/signin')
+
+	return redirect('/dashboard')
 
 def signin_user(request):
 
