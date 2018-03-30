@@ -8,76 +8,82 @@
 			<h2>Edit {% if user.id == request.session.id %}Profile{%else%}User #{{ user.id }}{%endif%}</h2>
 			<a href="/dashboard" class="button">Return to Dashboard</a>
 	</div>
-	<div class="col-1-2">
 
-		<form action="/users/update/{{ user.id }}" method="POST" class="edit">
-			{% csrf_token %}
-			<p>Edit Information</p>
-			<input type="hidden" name="form" value="edit_information">
-			<label>
-				Email Address:
-				<input type="text" name="email" value="{{ user.email }}">
-			</label>
+		{% if user.id != 1 %}
+		<div class="col-1-2">
 
-			<label>
-				First Name:
-				<input type="text" name="first_name" value="{{ user.first_name }}">
-			</label>
 
-			<label>
-				Last Name:
-				<input type="text" name="last_name" value="{{ user.last_name }}">
-			</label>
 
-			{% if request.session.user_level == 9 %}
-			<label>
-				User Level:
-				<select name="user_level">
-					<option value="9" {% if user.user_level == 9 %}selected{%endif%}>Admin</option>
-					<option value="1" {% if user.user_level == 1 %}selected{%endif%}>Standard</option>
-				</select>
-			</label>
-			{% endif %}
+			<form action="/users/update/{{ user.id }}" method="POST" class="edit">
+				{% csrf_token %}
+				<p>Edit Information</p>
+				<input type="hidden" name="form" value="edit_information">
+				<label>
+					Email Address:
+					<input type="text" name="email" value="{{ user.email }}">
+				</label>
 
-			<input type="submit" value="Save" class="button">
+				<label>
+					First Name:
+					<input type="text" name="first_name" value="{{ user.first_name }}">
+				</label>
 
-		</form>
-	</div>
-	<div class="col-1-2">
-		<form action="/users/update/{{user.id}}" method="POST" class="edit">
-			{% csrf_token %}
-			<p>Change Password</p>
-			<input type="hidden" name="form" value="update_password">
-			<label>
-				Password:
-				<input type="password" name="password">
-			</label>
+				<label>
+					Last Name:
+					<input type="text" name="last_name" value="{{ user.last_name }}">
+				</label>
 
-			<label>
-				Confirm Password:
-				<input type="password" name="confirm_pw">
-			</label>
+				{% if request.session.user_level == 9 %}
+				<label>
+					User Level:
+					<select name="user_level">
+						<option value="9" {% if user.user_level == 9 %}selected{%endif%}>Admin</option>
+						<option value="1" {% if user.user_level == 1 %}selected{%endif%}>Standard</option>
+					</select>
+				</label>
+				{% endif %}
 
-			<input type="submit" value="Update Password" class="button">
+				<input type="submit" value="Save" class="button">
 
-		</form>
-	</div>
-
-	{% if user.id == request.session.id %}
-		<div class="col-1-1">
-			<form action="/users/update/{{user.id}}" method="POST" class="edit">
-			{% csrf_token %}
-			<p>Edit Description</p>
-			<input type="hidden" name="form" value="update_description">
-			<label>
-				Description
-				<textarea name="description">{{ user.description.description }}</textarea>
-			</label>
-
-			<input type="submit" value="Save" class="button">
-
-		</form>
+			</form>
 		</div>
+		<div class="col-1-2">
+			<form action="/users/update/{{user.id}}" method="POST" class="edit">
+				{% csrf_token %}
+				<p>Change Password</p>
+				<input type="hidden" name="form" value="update_password">
+				<label>
+					Password:
+					<input type="password" name="password">
+				</label>
+
+				<label>
+					Confirm Password:
+					<input type="password" name="confirm_pw">
+				</label>
+
+				<input type="submit" value="Update Password" class="button">
+
+			</form>
+		</div>
+
+		{% if user.id == request.session.id %}
+			<div class="col-1-1">
+				<form action="/users/update/{{user.id}}" method="POST" class="edit">
+				{% csrf_token %}
+				<p>Edit Description</p>
+				<input type="hidden" name="form" value="update_description">
+				<label>
+					Description
+					<textarea name="description">{{ user.description.description }}</textarea>
+				</label>
+
+				<input type="submit" value="Save" class="button">
+
+			</form>
+			</div>
+		{% endif %}
+	{% elif %}
 	{% endif %}
 </div>
 

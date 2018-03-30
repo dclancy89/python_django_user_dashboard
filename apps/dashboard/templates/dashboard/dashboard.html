@@ -26,7 +26,7 @@
 						<td>{{ u.email }}</td>
 						<td>{{ u.created_at }}</td>
 						<td>{% if u.user_level == 9 %}Admin{%else%}Standard{%endif%}</td>
-						{%if user.user_level == 9 %}<td><a href="users/edit/{{ u.id }}">edit</a> | <a href="/users/{{ u.id }}/destroy">remove</a></td>{%endif%}
+						{%if user.user_level == 9 and u.id != 1%}<td><a href="users/edit/{{ u.id }}">edit</a> | <a href="/users/{{ u.id }}/destroy">remove</a></td>{%endif%}
 					</tr>
 				{% endfor %}
 			</tbody>
